@@ -1,22 +1,18 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-class Block
+class Game
 {
-	//EXAMPLE friend class Tournament;
-	//EXAMPLE friend class Game;
 
 public:
-	//EXAMPLE PokerRank getCommunityRank( void ) const			{ return( hand.getCommunityRank() ); } //This is public, because everybody can see the table !
-	//EXAMPLE PlayerID getID() const								{ return( ID ); }
+	void printField() const { return( ID ); }
+	void dropBlock( const Card * newCard ) { hand.addCard( newCard ); }
+	void getBlock( const Card * newCard ) { hand.addCard( newCard ); }
 
 protected:
-	int * playingField();
-	int * activePlayingField();
 
 private:
-	//EXAMPLE void setID( const PlayerID ID )						{ this->ID = ID; }
-	//EXAMPLE void addCard( const Card * newCard )				{ hand.addCard( newCard ); }
+	void mergeFields( const Card * newCard ) { hand.addCard( newCard ); }
 };
 
 #endif
