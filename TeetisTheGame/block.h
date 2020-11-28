@@ -3,6 +3,9 @@ class Block
 	friend class Game;
 
 public:
+	Block();
+	void rotateBlock(void);
+	void setBlock(void);
 	//PokerRank getCommunityRank( void ) const			{ return( hand.getCommunityRank() ); } //This is public, because everybody can see the table !
 	//PlayerID getID() const								{ return( ID ); }
 
@@ -12,8 +15,5 @@ protected:
 	//const Game * getGame( void ) const					{ return( game ); }
 
 private:
-	//void setID( const PlayerID ID )						{ this->ID = ID; }
-	//void addCard( const Card * newCard )				{ hand.addCard( newCard ); }
+	bool blockArray[4][4];
 };
-
-#endif
