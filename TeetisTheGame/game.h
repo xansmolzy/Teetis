@@ -8,12 +8,12 @@ public:
 
 	void printField(void);
 	void dropBlock(void);
-	void getBlock( const Card * newCard ) { hand.addCard( newCard ); }
+	void getBlock(void);
 	void moveBlock(const char input);
 protected:
 	bool gameArray[10][16];
 private:
-	void mergeFields( const Card * newCard ) { hand.addCard( newCard ); }
+	void mergeFields(void);
 };
 
 #endif
