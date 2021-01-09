@@ -4,7 +4,7 @@ class Block
 
 public:
 	Block();
-	void rotateBlock(void);
+	void rotateBlock(char);
 	void setBlock(void);
 protected:
 	//bool checkBottomedOut(Game* game);
