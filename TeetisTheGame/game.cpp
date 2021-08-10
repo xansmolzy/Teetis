@@ -32,7 +32,7 @@ void Game::mergeFields(void)
 {
 	for(char y = 0; y < 3; y++) {
 		for(char x = 0; x < 3; x++) {
-			//gameArray[x + blockIndex[0]][y + blockIndex[1]] = blockArray[x][y];
+			gameArray[x + blockIndex[0]][y + blockIndex[1]] = blockArray[x][y];
 		}
 	}
 }
