@@ -1,3 +1,6 @@
+#ifndef BLOCK_H
+#define BLOCK_H
+
 class Block
 {
 	friend class Game;
@@ -6,10 +9,10 @@ class Block
 		void rotateBlock(char);
 	protected:
 		//bool checkBottomedOut(Game* game);
-	private:
 		bool blockArray[4][4];
-		uint8_t x;
-		uint8_t y;
+	private:
+		char x;
+		char y;
 };
 
 class TetrominoI: public Block {
@@ -40,3 +43,4 @@ class TetrominoZ: public Block {
   public:
 	TetrominoZ();
 };
+#endif

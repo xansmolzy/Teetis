@@ -1,5 +1,4 @@
-#ifndef BLOCK_H
-#define BLOCK_H
+#include "block.h"
 
 void Block::rotateBlock(char input)
 {
@@ -19,51 +18,45 @@ void Block::rotateBlock(char input)
 	}
 }
 
-void TetrominoI::TetrominoI() {
-	blockArray = [false,false,false,false],
-			     [false,false,false,false],
-			     [false,false,false,false],
-			     [true,true,true,true];
+TetrominoI::TetrominoI() {
+	blockArray = {{false,false,false,false},
+			     {false,false,false,false},
+			     {false,false,false,false},
+			     {true,true,true,true}};
 }
-
-void TetrominoJ::TetrominoJ() {
-	blockArray = [false,false,false,true],
-			     [false,false,false,true],
-			     [false,false,false,true],
-			     [false,false,true,true];
+TetrominoJ::TetrominoJ() {
+	blockArray = {{false,false,false,true},
+			     {false,false,false,true},
+			     {false,false,false,true},
+			     {false,false,true,true}};
 }
-
-void TetrominoL::TetrominoL() {
-	blockArray = [true,false,false,false],
-			     [true,false,false,false],
-			     [true,false,false,false],
-			     [true,true,false,false];
+TetrominoL::TetrominoL() {
+	blockArray = {{true,false,false,false},
+			     {true,false,false,false},
+			     {true,false,false,false},
+			     {true,true,false,false}};
 }
-
-void TetrominoO::TetrominoO() {
-	blockArray = [false,false,false,false],
-			     [false,false,false,false],
-			     [false,false,true,true],
-			     [false,false,true,true];
+TetrominoO::TetrominoO() {
+	blockArray = {{false,false,false,false},
+			     {false,false,false,false},
+			     {false,false,true,true},
+			     {false,false,true,true}};
 }
-
-void TetrominoS::TetrominoS() {
-	blockArray = [false,false,false,true],
-			     [false,false,false,true],
-			     [false,false,false,true],
-			     [false,false,true,true];
+TetrominoS::TetrominoS() {
+	blockArray = {{false,false,false,true},
+			     {false,false,false,true},
+			     {false,false,false,true},
+			     {false,false,true,true}};
 }
-
-void TetrominoT::TetrominoT() {
-	blockArray = [false,false,false,false],
-			     [false,false,false,false],
-			     [false,false,false,false],
-			     [true,true,true,true];
+TetrominoT::TetrominoT() {
+	blockArray = {{false,false,false,false},
+			     {false,false,false,false},
+			     {false,false,false,false},
+			     {true,true,true,true}};
 }
-
-void TetrominoZ::TetrominoZ() {
-	blockArray = [false,false,false,true],
-			     [false,false,false,true],
-			     [false,false,false,true],
-			     [false,false,true,true];
+TetrominoZ::TetrominoZ() {
+	blockArray = {{false,false,false,true},
+			     {false,false,false,true},
+			     {false,false,false,true},
+			     {false,false,true,true}};
 }

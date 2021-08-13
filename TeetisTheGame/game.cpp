@@ -64,3 +64,25 @@ void Game::clearLine(char input)
 {
 	//for(char x = 0; x < 9; x++) { gameArray[x][input] = ' '; }
 }
+
+void Game::printInit()
+{
+	cout << "----Teetis----";
+	cout << "--■■■       --";
+	cout << "--  ■       --";
+	cout << "--      ■■  --";
+	cout << "--      ■■  --";
+	cout << "--  ■       --";
+	cout << "--  ■       --";
+	cout << "--  ■       --";
+	cout << "--  ■       --";
+	cout << "--          --";
+    cout << "--          --";
+    cout << "--          --";
+	cout << "--      ■■  --";
+	cout << "--     ■ ■■ --";
+	cout << "--     ■    --";
+	cout << "--  ■■■■■■  --";
+	cout << "--■■■■■■ ■■ --";
+	cout << "--By  Xand0r--";
+}

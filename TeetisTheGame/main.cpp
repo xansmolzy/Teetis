@@ -9,7 +9,7 @@ using namespace std;
 int main( int argumentCount, char * argumentVector[] )
 {
 	Game* teetisGame = new Game();
-	//initscr();
+	teetisGame->printInit();
 	while(true){
 		int keyScan = 0;
 		while(keyScan < 9) {

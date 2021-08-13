@@ -8,6 +8,7 @@ class Game
 {
 	public:
 		Game();
+		void printInit();
 		char blockIndex[2]; //[0] x, [1] y
 		void printField(void);
 		void dropBlock(void);
