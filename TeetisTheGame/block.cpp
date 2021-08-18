@@ -39,50 +39,50 @@ TetrominoI::TetrominoI() {
 	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }
 TetrominoJ::TetrominoJ() {
-	bool tmpblockArray[4][4] = {{false,false,false,false},
-							   {false,false,false,false},
-							   {false,false,false,false},
-			                   {true,true,true,true}};
+	bool tmpblockArray[4][4] = {{false,false,false,true},
+							   {false,false,false,true},
+							   {false,false,false,true},
+			                   {false,false,true,true}};
 			                   
 	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }
 TetrominoL::TetrominoL() {
-	bool tmpblockArray[4][4] = {{false,false,false,false},
-							   {false,false,false,false},
-							   {false,false,false,false},
-			                   {true,true,true,true}};
+	bool tmpblockArray[4][4] = {{true,false,false,false},
+							   {true,false,false,false},
+							   {true,false,false,false},
+			                   {true,true,false,false}};
 			                   
 	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }
 TetrominoO::TetrominoO() {
 	bool tmpblockArray[4][4] = {{false,false,false,false},
 							   {false,false,false,false},
-							   {false,false,false,false},
-			                   {true,true,true,true}};
+							   {false,true,true,false},
+			                   {false,true,true,false}};
 			                   
 	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }
 TetrominoS::TetrominoS() {
 	bool tmpblockArray[4][4] = {{false,false,false,false},
 							   {false,false,false,false},
-							   {false,false,false,false},
-			                   {true,true,true,true}};
+							   {true,true,false,false},
+			                   {false,true,true,false}};
 			                   
 	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }
 TetrominoT::TetrominoT() {
 	bool tmpblockArray[4][4] = {{false,false,false,false},
 							   {false,false,false,false},
-							   {false,false,false,false},
-			                   {true,true,true,true}};
+							   {false,true,false,false},
+			                   {true,true,true,false}};
 			                   
 	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }
 TetrominoZ::TetrominoZ() {
 	bool tmpblockArray[4][4] = {{false,false,false,false},
 							   {false,false,false,false},
-							   {false,false,false,false},
-			                   {true,true,true,true}};
+							   {false,true,true,false},
+			                   {true,true,false,false}};
 			                   
 	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }

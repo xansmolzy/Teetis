@@ -1,20 +1,17 @@
 #ifndef BLOCK_H
 #define BLOCK_H
-
+#include <cstring>
+using namespace std;
 class Block
 {
-	friend class Game;
-
-	public:
-		Block();
-		void rotateBlock(char);
-	    int x = 0;
-		int y = 0;
+	friend class Game; //https://youtu.be/ZyhrYis509A?t=58
 	protected:
-		//bool checkBottomedOut(Game* game);
+		Block();
+		inline Block(bool customBlock[4][4]) { memcpy(blockArray, customBlock, 4*4*sizeof(bool)); };
+		void rotateBlock(char);
+		char x = 0;
+		char y = 0;
 		bool blockArray[4][4];
-
-	private:
 };
 
 class TetrominoI: public Block {
