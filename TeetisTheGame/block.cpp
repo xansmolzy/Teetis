@@ -1,4 +1,16 @@
 #include "block.h"
+#include <cstring>
+using namespace std;
+
+Block::Block()
+{
+	bool tmpblockArray[4][4] = {{false,false,false,false},
+							   {false,false,false,false},
+							   {false,false,false,false},
+			                   {false,false,false,false}};
+			                   
+	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
+}
 
 void Block::rotateBlock(char input)
 {
@@ -19,44 +31,58 @@ void Block::rotateBlock(char input)
 }
 
 TetrominoI::TetrominoI() {
-	blockArray = {{false,false,false,false},
-			     {false,false,false,false},
-			     {false,false,false,false},
-			     {true,true,true,true}};
+	bool tmpblockArray[4][4] = {{false,false,false,false},
+							   {false,false,false,false},
+							   {false,false,false,false},
+			                   {true,true,true,true}};
+			                   
+	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }
 TetrominoJ::TetrominoJ() {
-	blockArray = {{false,false,false,true},
-			     {false,false,false,true},
-			     {false,false,false,true},
-			     {false,false,true,true}};
+	bool tmpblockArray[4][4] = {{false,false,false,false},
+							   {false,false,false,false},
+							   {false,false,false,false},
+			                   {true,true,true,true}};
+			                   
+	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }
 TetrominoL::TetrominoL() {
-	blockArray = {{true,false,false,false},
-			     {true,false,false,false},
-			     {true,false,false,false},
-			     {true,true,false,false}};
+	bool tmpblockArray[4][4] = {{false,false,false,false},
+							   {false,false,false,false},
+							   {false,false,false,false},
+			                   {true,true,true,true}};
+			                   
+	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }
 TetrominoO::TetrominoO() {
-	blockArray = {{false,false,false,false},
-			     {false,false,false,false},
-			     {false,false,true,true},
-			     {false,false,true,true}};
+	bool tmpblockArray[4][4] = {{false,false,false,false},
+							   {false,false,false,false},
+							   {false,false,false,false},
+			                   {true,true,true,true}};
+			                   
+	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }
 TetrominoS::TetrominoS() {
-	blockArray = {{false,false,false,true},
-			     {false,false,false,true},
-			     {false,false,false,true},
-			     {false,false,true,true}};
+	bool tmpblockArray[4][4] = {{false,false,false,false},
+							   {false,false,false,false},
+							   {false,false,false,false},
+			                   {true,true,true,true}};
+			                   
+	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }
 TetrominoT::TetrominoT() {
-	blockArray = {{false,false,false,false},
-			     {false,false,false,false},
-			     {false,false,false,false},
-			     {true,true,true,true}};
+	bool tmpblockArray[4][4] = {{false,false,false,false},
+							   {false,false,false,false},
+							   {false,false,false,false},
+			                   {true,true,true,true}};
+			                   
+	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }
 TetrominoZ::TetrominoZ() {
-	blockArray = {{false,false,false,true},
-			     {false,false,false,true},
-			     {false,false,false,true},
-			     {false,false,true,true}};
+	bool tmpblockArray[4][4] = {{false,false,false,false},
+							   {false,false,false,false},
+							   {false,false,false,false},
+			                   {true,true,true,true}};
+			                   
+	memcpy(blockArray, tmpblockArray, 4*4*sizeof(bool));
 }

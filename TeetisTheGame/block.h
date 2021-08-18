@@ -6,13 +6,15 @@ class Block
 	friend class Game;
 
 	public:
+		Block();
 		void rotateBlock(char);
+	    int x = 0;
+		int y = 0;
 	protected:
 		//bool checkBottomedOut(Game* game);
 		bool blockArray[4][4];
+
 	private:
-		char x;
-		char y;
 };
 
 class TetrominoI: public Block {

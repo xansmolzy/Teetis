@@ -1,88 +1,192 @@
+#include "block.h"
 #include "game.h"
+#include <ncurses.h>//keyboard input, use "-lcurses" when compiling
+#include <unistd.h> //allow usleep to work
+#include <string>
+#include <cstring>
+#include <cstdlib> 
+using namespace std;
 
-Game::Game(void) {  }
-
-void Game::printField(void) {
+Game::Game(void) {
+	//start ncurses and print splashscreen
+	initscr();
+	nodelay(stdscr, TRUE);
+    keypad(stdscr, TRUE);
+    noecho();
+	printInit();
+	refresh();
+	sleep(2);
+	clear();
+	//Set array sizes
+	//init game array
 	for(char x = 0; x < 10; x++) {
 		for(char y = 0; y < 16; y++) {
-			gameArray[10][16];
+			gameArray[x][y] = '.';
 		}
-		std::cout << "\n";
 	}
+	//start the first block
+	srand(time(NULL));
+	nextBlock = newBlock();
+	nextBlock = newBlock();
+}
+
+Game::Game(const unsigned char xFieldSizeIn,const unsigned char yFieldSizeIn) {
+	//start ncurses and print splashscreen
+	initscr();
+	nodelay(stdscr, TRUE);
+    keypad(stdscr, TRUE);
+    noecho();
+	printInit();
+	refresh();
+	sleep(2);
+	clear();
+	//Set array sizes
+	xFieldSize = xFieldSizeIn;
+	yFieldSize = yFieldSizeIn;
+	
+	//init game array
+	for(char x = 0; x < 10; x++) {
+		for(char y = 0; y < 16; y++) {
+			gameArray[x][y] = '.';
+		}
+	}
+	//start the first block
+	srand(time(NULL));
+	nextBlock = newBlock();
+	nextBlock = newBlock();
+}
+
+void Game::printField(void) {
+	clear();
+	memcpy(printGameArray, gameArray, yFieldSize*xFieldSize*sizeof(char));
+	
+	for(char y = 0; y < 4; y++) {
+		for(char x = 0; x < 4; x++) {
+			if(currentBlock.blockArray[x][y] == true) { printGameArray[currentBlock.x+x][currentBlock.y+y] = '#'; }
+		}
+	}
+	for(char y = 0; y < 16; y++) {
+		string s;
+		for(char x = 0; x < 10; x++) {
+			if(x == currentBlock.x && y == currentBlock.y) { s += "*"; }
+			else { s += printGameArray[x][y]; }
+		}
+		s += '\n';
+		printw(s.c_str());
+	}
+	string s = "Score: ";
+	//s += to_string(score);
+	s+= "\n";
+	printw(s.c_str());
+	refresh();
 }
 
 void Game::dropBlock(void)
 {
-	blockIndex[1] = blockIndex[1]-1;
-}
-
-void Game::moveBlock(const char input) {
-	switch(input) {
-		case 77: if(blockIndex[0] != 0) { blockIndex[0] = blockIndex[0]-1; } break; //Right
-		case 75: if(blockIndex[0] != 9) { blockIndex[0] = blockIndex[0]+1; } break; //Left
-		case 80:
-			if(blockIndex[1] != 0) {
-				if (gameArray[blockIndex[0]][blockIndex[1]-1] == ' ') { blockIndex[1] = blockIndex[1]-1; } 
-			}
-			break; //Down
+	for(char y = 0; y < 4; y++) {
+		for(char x = 0; x < 4; x++) {
+			if((currentBlock.blockArray[x][y] == true && currentBlock.y+y == 15) ||
+			  (currentBlock.blockArray[x][y] == true && gameArray[currentBlock.x+x][currentBlock.y+y+1] == '#')) 
+			{ mergeFields(); return; }
+		}
 	}
+	currentBlock.y++;
 }
 
 void Game::mergeFields(void)
 {
-	for(char y = 0; y < 3; y++) {
-		for(char x = 0; x < 3; x++) {
-			gameArray[x + blockIndex[0]][y + blockIndex[1]] = blockArray[x][y];
-		}
-	}
+	memcpy(gameArray, printGameArray, yFieldSize*xFieldSize*sizeof(char));
+	checkFullLine();
+	newBlock();
+	printField();
 }
 
-uint_fast16_t Game::checkLine(void)
+void Game::clearLine(char input)
 {
-	uint_fast16_t scoreCount = 0;
+	for(char y = input; y > 1; y--) {
+		for(char x = 0; x < 10; x++) { gameArray[x][y] = gameArray[x][y-1]; }
+	}
+	for(char x = 0; x < 10; x++) { gameArray[x][0] = '.'; }
+}
+
+unsigned int Game::checkFullLine(void)
+{
+	static int scoreCount = 0;
 	char totalLineCount = 0;
-	for(char y = 0; y < 15; y++) {
+	for(int y = 0; y < 16; y++) {
 		char lineCount = 0;
-		for(char x = 0; x < 9; x++) {
-			//if(gameArray[x][y] != NULL) { lineCount++; }
+		for(int x = 0; x < 10; x++) {
+			if(gameArray[x][y] == '#') { lineCount++; }
 		}
-		if(lineCount == 10) { totalLineCount++; clearLine(y);}
+		if(lineCount >= 10) { totalLineCount++; clearLine(y); y--;}
 	}
 	
 	switch(totalLineCount) {
 		case 0: break;
-		case 1: scoreCount = 40;
-		case 2: scoreCount = 100;
-		case 3: scoreCount = 300;
-		case 4: scoreCount = 1200;
+		case 1: scoreCount += 40;
+		case 2: scoreCount += 100;
+		case 3: scoreCount += 300;
+		case 4: scoreCount += 1200;
 	}
 
 	return scoreCount;
 }
 
-void Game::clearLine(char input)
+void Game::moveBlock(const char input) {
+	switch(input) {
+		case 'L': currentBlock.x--; break; //code for arrow right
+		case 'R': currentBlock.x++; break; //code for arrow left
+	}
+}
+
+void Game::rotateBlock(const char input)
+{	
+	bool tmpblockArray[4][4];
+	for(char y = 0; y < 4; y++) {
+		for(char x = 0; x < 4; x++) {
+			tmpblockArray[y][x] = currentBlock.blockArray[x][y];
+		}
+	}
+	memcpy(currentBlock.blockArray, tmpblockArray, 4*4*sizeof(bool));
+}
+Block Game::newBlock()
 {
-	//for(char x = 0; x < 9; x++) { gameArray[x][input] = ' '; }
+	Block blockRet;
+	currentBlock = nextBlock;
+	switch(rand()%6) {
+		case 0: blockRet = TetrominoI(); break;
+		case 1: blockRet = TetrominoJ(); break;
+		case 2: blockRet = TetrominoL(); break;
+		case 3: blockRet = TetrominoO(); break;
+		case 4: blockRet = TetrominoS(); break;
+		case 5: blockRet = TetrominoT(); break;
+		case 6: blockRet = TetrominoZ(); break;
+		default: blockRet = Block();
+	}
+	return blockRet;
 }
 
 void Game::printInit()
-{
-	cout << "----Teetis----";
-	cout << "--■■■       --";
-	cout << "--  ■       --";
-	cout << "--      ■■  --";
-	cout << "--      ■■  --";
-	cout << "--  ■       --";
-	cout << "--  ■       --";
-	cout << "--  ■       --";
-	cout << "--  ■       --";
-	cout << "--          --";
-    cout << "--          --";
-    cout << "--          --";
-	cout << "--      ■■  --";
-	cout << "--     ■ ■■ --";
-	cout << "--     ■    --";
-	cout << "--  ■■■■■■  --";
-	cout << "--■■■■■■ ■■ --";
-	cout << "--By  Xand0r--";
+{	start_color();
+	init_pair(1, COLOR_RED, COLOR_BLACK);
+	attron(COLOR_PAIR(1));
+	printw("----Teetis----\n");
+	printw("--###       --\n");
+	printw("--  #       --\n");
+	printw("--      ##  --\n");
+	printw("--      ##  --\n");
+	printw("--  #       --\n");
+	printw("--  #       --\n");
+	printw("--  #       --\n");
+	printw("--  #       --\n");
+	printw("--          --\n");
+    printw("--          --\n");
+    printw("--          --\n");
+	printw("--      ##  --\n");
+	printw("--     # ## --\n");
+	printw("--     #    --\n");
+	printw("--  ######  --\n");
+	printw("--###### ## --\n");
+	printw("--By  Xand0r--\n");
+	attroff(COLOR_PAIR(1));
 }
